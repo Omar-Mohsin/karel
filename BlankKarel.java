@@ -111,22 +111,25 @@ public class BlankKarel extends SuperKarel {
 	private void makeSquare(){
 		turnAround();
 
-		// first section start the sq
 
-		if(Y%2==1){
+		// odd is good
+		// error in direction in even (x!=y)
+		// first section start the sq
+		System.out.println("something");
+		if(X%2==1){
 			for (int i = 0; i <= X/2-Y/2; i++) {
 				move();
 				counterMoves++;
+				System.out.println("something");
 
 			}
-		} else if(Y%2==0){
+		} else if(X%2==0){
 			for (int i = 0; i <= X/2-Y/2; i++) {
 				move();
+				System.out.println("something");
 				counterMoves++;
 			}
 		}
-
-
 			turnLeft();
 		//sec section
 		if(X%2==1) {
@@ -134,6 +137,7 @@ public class BlankKarel extends SuperKarel {
 				if (!beepersPresent()) {
 					putBeeper();
 				}
+
 				move();
 				counterMoves++;
 			}
@@ -143,6 +147,7 @@ public class BlankKarel extends SuperKarel {
 						putBeeper();
 					}
 					move();
+
 					counterMoves++;
 				}
 		}
@@ -153,7 +158,7 @@ public class BlankKarel extends SuperKarel {
 
 		// third section
 		if(X%2==1) {
-			for(int i = 1;i<=Y-3;i++){
+			for(int i = 1;i<=Y/2*2-2;i++){
 				move();
 				if(!beepersPresent()){
 					putBeeper();
@@ -162,12 +167,10 @@ public class BlankKarel extends SuperKarel {
 			}
 		} else if(X%2==0){
 			for(int i = 1; i<Y/2*2-2 ; i++){
-
+				move();
 				if(!beepersPresent()){
 					putBeeper();
 				}
-
-				move();
 				counterMoves++;
 			}
 		}
@@ -176,7 +179,7 @@ public class BlankKarel extends SuperKarel {
 		}
 		turnRight();
 		//forth section
-		if(X%2==1){
+		if(Y%2==1){
 			for(int i = 1;i<=Y-3;i++){
 				move();
 				if(!beepersPresent()){
@@ -184,7 +187,7 @@ public class BlankKarel extends SuperKarel {
 				}
 				counterMoves++;
 			}
-		} else if(X%2 ==0){
+		} else if(Y%2 ==0){
 			for(int i = 1;i<Y-2;i++){
 				move();
 				if(!beepersPresent()){
@@ -198,16 +201,16 @@ public class BlankKarel extends SuperKarel {
 		}
 		turnRight();
 		//fifth
-		if(Y%2==1){
-			for(int i = 1;i<=Y-3;i++){
+		if(X%2==1){
+			for(int i = 1; i<=Y/2*2-2; i++){
 				move();
 				if(!beepersPresent()){
 					putBeeper();
 				}
 				counterMoves++;
 			}
-		} else if(Y%2==0){
-			for(int i = 1; i<Y-2 ; i++){
+		} else if(X%2==0){
+			for(int i = 1; i<Y/2*2-2 ; i++){
 				move();
 				if(!beepersPresent()){
 					putBeeper();
