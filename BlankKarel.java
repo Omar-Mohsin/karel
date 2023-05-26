@@ -114,12 +114,13 @@ public class BlankKarel extends SuperKarel {
 		// first section start the sq
 
 		if(Y%2==1){
-			for (int i = 1; i <= Y/2-5; i++) {
+			for (int i = 0; i <= X/2-Y/2; i++) {
 				move();
 				counterMoves++;
+
 			}
 		} else if(Y%2==0){
-			for (int i = 1; i <= Y-Y/2; i++) {
+			for (int i = 0; i <= X/2-Y/2; i++) {
 				move();
 				counterMoves++;
 			}
@@ -160,7 +161,7 @@ public class BlankKarel extends SuperKarel {
 				counterMoves++;
 			}
 		} else if(X%2==0){
-			for(int i = 1; i<Y/2*2 ; i++){
+			for(int i = 1; i<Y/2*2-2 ; i++){
 
 				if(!beepersPresent()){
 					putBeeper();
