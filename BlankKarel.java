@@ -220,7 +220,10 @@ public class BlankKarel extends SuperKarel {
 					putBeeper();
 				}
 			}
-		} else if (X < Y) { // one column empty left and right
+		}
+
+
+		else if (X < Y) { // one column empty left and right
 			move();
 			turnLeft();
 			//sec section
