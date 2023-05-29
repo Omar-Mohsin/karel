@@ -2,7 +2,7 @@
  * File: BlankKarel.java
  * ---------------------
  * This class is a blank one that you can change at will.
-*/
+ */
 import stanford.karel.*;
 public class BlankKarel extends SuperKarel {
 	private int counterMoves = 0;
