@@ -6,34 +6,37 @@
 import stanford.karel.*;
 public class BlankKarel extends SuperKarel {
 	private int counterMoves = 0;
-	private int X ;
-	private int Y ;
+	private int X;
+	private int Y;
+
 	public void run() {
-		System.out.println("the area of the world "+ area());
+		System.out.println("the area of the world " + area());
 		System.out.println("the value of X = " + X);
-		System.out.println("the value of Y = " + Y  );
-		if(Y>X){
+		System.out.println("the value of Y = " + Y);
+		if (X * Y <= 16) {
 			System.out.println("this world cannot be divided ");
 		} else {
 			makeACrossLines();
 			makeSquare();
-			System.out.println("the moves are "+ counterMoves);
+			System.out.println("the moves are " + counterMoves);
 		}
 	}
-	private int countX(){
+
+	private int countX() {
 		int row = 1;
-		while(frontIsClear()){
+		while (frontIsClear()) {
 			move();
 			row++;
 			counterMoves++;
 		}
-		 X = row;
+		X = row;
 		return row;
 	}
-	private int countY(){
+
+	private int countY() {
 		turnLeft();
-		int column = 1 ;
-		while(frontIsClear()){
+		int column = 1;
+		while (frontIsClear()) {
 			move();
 			column++;
 			counterMoves++;
@@ -41,28 +44,30 @@ public class BlankKarel extends SuperKarel {
 		Y = column;
 		return column;
 	}
-	private int area(){
+
+	private int area() {
 		return countX() * countY();
 	}
-	private void middleOfX(){
+
+	private void middleOfX() {
 		turnLeft();
-		for(int i=1; i<=X/2;i++){
+		for (int i = 1; i <= X / 2; i++) {
 			move();
 			counterMoves++;
 		}
 		turnLeft();
-		while(frontIsClear()){
+		while (frontIsClear()) {
 			putBeeper();
 			move();
 			counterMoves++;
 		}
 		putBeeper();
-		if(X%2==0){
+		if (X % 2 == 0) {
 			turnLeft();
 			move();
 			turnLeft();
-			while(frontIsClear()){
-				if(!beepersPresent()) {
+			while (frontIsClear()) {
+				if (!beepersPresent()) {
 					putBeeper();
 				}
 				move();
@@ -71,32 +76,33 @@ public class BlankKarel extends SuperKarel {
 			putBeeper();
 		}
 	}
-	private void middleOfY(){
+
+	private void middleOfY() {
 		turnAround();
-		for(int i=1; i<=Y/2;i++){
+		for (int i = 1; i <= Y / 2; i++) {
 			move();
 			counterMoves++;
 		}
 		turnLeft();
-		while(frontIsClear()){
+		while (frontIsClear()) {
 			move();
 			counterMoves++;
 		}
 		turnAround();
 		putBeeper();
-		while(frontIsClear()){
+		while (frontIsClear()) {
 			move();
-			if(!beepersPresent()){
+			if (!beepersPresent()) {
 				putBeeper();
 			}
 			counterMoves++;
 		}
-		if(Y%2==0){
+		if (Y % 2 == 0) {
 			turnRight();
 			move();
 			turnRight();
-			while(frontIsClear()){
-				if(!beepersPresent()){
+			while (frontIsClear()) {
+				if (!beepersPresent()) {
 					putBeeper();
 				}
 				move();
@@ -104,132 +110,215 @@ public class BlankKarel extends SuperKarel {
 			putBeeper();
 		}
 	}
-	private void makeACrossLines(){
+
+	private void makeACrossLines() {
 		middleOfX();
 		middleOfY();
 	}
-	private void makeSquare(){
+
+	private void makeSquare() {
 		turnAround();
 
-
-		// odd is good
-		// error in direction in even (x!=y)
-		// first section start the sq
-		System.out.println("something");
-		if(X%2==1){
-			for (int i = 0; i <= X/2-Y/2; i++) {
+		if (X >= Y) { // one row empty up and bottom
+			// first section start the sq
+			for (int i = 0; i <= X / 2 - Y / 2; i++) {
 				move();
 				counterMoves++;
-				System.out.println("something");
-
 			}
-		} else if(X%2==0){
-			for (int i = 0; i <= X/2-Y/2; i++) {
-				move();
-				System.out.println("something");
-				counterMoves++;
-			}
-		}
 			turnLeft();
-		//sec section
-		if(X%2==1) {
-			for (int i = 1; i <= Y / 2 - 1; i++) {
-				if (!beepersPresent()) {
-					putBeeper();
-				}
-
-				move();
-				counterMoves++;
-			}
-		} else if(X%2==0){
-				for (int i = 1; i < Y/2; i++) {
+			//sec section
+			if (X % 2 == 1) {
+				for (int i = 1; i <= Y / 2 - 1; i++) {
 					if (!beepersPresent()) {
 						putBeeper();
 					}
 					move();
-
 					counterMoves++;
 				}
-		}
-		if(!beepersPresent()){
-			putBeeper();
-		}
-		turnRight();
-
-		// third section
-		if(X%2==1) {
-			for(int i = 1;i<=Y/2*2-2;i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < Y / 2; i++) {
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					move();
+					counterMoves++;
 				}
-				counterMoves++;
 			}
-		} else if(X%2==0){
-			for(int i = 1; i<Y/2*2-2 ; i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
-				}
-				counterMoves++;
-			}
-		}
-		if(!beepersPresent()){
-			putBeeper();
-		}
-		turnRight();
-		//forth section
-		if(Y%2==1){
-			for(int i = 1;i<=Y-3;i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
-				}
-				counterMoves++;
-			}
-		} else if(Y%2 ==0){
-			for(int i = 1;i<Y-2;i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
-				}
-				counterMoves++;
-			}
-		}
-		if(!beepersPresent()){
-			putBeeper();
-		}
-		turnRight();
-		//fifth
-		if(X%2==1){
-			for(int i = 1; i<=Y/2*2-2; i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
-				}
-				counterMoves++;
-			}
-		} else if(X%2==0){
-			for(int i = 1; i<Y/2*2-2 ; i++){
-				move();
-				if(!beepersPresent()){
-					putBeeper();
-				}
-				counterMoves++;
-			}
-		}
-		if(!beepersPresent()){
-			putBeeper();
-		}
-		turnRight();
-		for(int i = 1;i<=Y/2-2;i++){
-			move();
-			if(!beepersPresent()){
+			if (!beepersPresent()) {
 				putBeeper();
 			}
+			turnRight();
+			// third section
+			if (X % 2 == 1) {
+				for (int i = 1; i <= Y / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < Y / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			//forth section
+			if (Y % 2 == 1) {
+				for (int i = 1; i <= Y - 3; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (Y % 2 == 0) {
+				for (int i = 1; i < Y - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			//fifth
+			if (X % 2 == 1) {
+				for (int i = 1; i <= Y / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < Y / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			for (int i = 1; i <= Y / 2 - 2; i++) {
+				move();
+				if (!beepersPresent()) {
+					putBeeper();
+				}
+			}
+		} else if (X < Y) { // one column empty left and right
+			move();
+			turnLeft();
+			//sec section
+			if (X % 2 == 1) {
+				for (int i = 1; i <= X / 2 - 1; i++) {
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					move();
+					counterMoves++;
+				}
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < X / 2; i++) {
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					move();
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			// third section
+			if (X % 2 == 1) {
+				for (int i = 1; i <= X / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < X / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			//forth section
+			if (Y % 2 == 1) {
+				for (int i = 1; i <= X - 3; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (Y % 2 == 0) {
+				for (int i = 1; i < X - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			//fifth
+			if (X % 2 == 1) {
+				for (int i = 1; i <= X / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			} else if (X % 2 == 0) {
+				for (int i = 1; i < X / 2 * 2 - 2; i++) {
+					move();
+					if (!beepersPresent()) {
+						putBeeper();
+					}
+					counterMoves++;
+				}
+			}
+			if (!beepersPresent()) {
+				putBeeper();
+			}
+			turnRight();
+			for (int i = 1; i <= X / 2 - 2; i++) {
+				move();
+				if (!beepersPresent()) {
+					putBeeper();
+				}
+			}
+
 		}
-
-
 	}
 }
 
